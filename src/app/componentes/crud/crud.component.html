@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header" style="text-align: center;">CRUD</div>
+      <div class="card-body">
+        <ul class="list-group">
+            <li [ngClass]='{"text-white bg-dark":nota.idUser}' class="list-group-item"
+            *ngFor="let nota of notas" (click)="nota.idUser ? formNuevo.patchValue(nota) : formNuevo.reset()">
+              {{nota.titulo}} : {{nota.contenido}}
+            </li>
+        </ul>
+        <div *ngIf='creada' class="alert alert-primary" role="alert">
+            <strong>Nota creada correctamente</strong>
+        </div>
+        <hr>
+        <h5 style="text-align: center;">Formulario con formGroup</h5>
+        <form [formGroup]='formNuevo' (ngSubmit)='crearNota(formNuevo.value)'>
+          <input class="form-control" type="text" formControlName="titulo" placeholder="Titulo de la nota" style="border-radius: 10px;"><br>
+          <input class="form-control" type="text" formControlName="contenido" placeholder="Contenido de la nota" style="border-radius: 10px;"><br>
+          <button class="btn btn-primary btn-block" type="submit" 
+            *ngIf='!formNuevo.value.id; else editar' [disabled]='formNuevo.invalid' style="border-radius: 10px;">Crear nota</button>
+          <ng-template #editar>
+            <div class="btn-group btn-block">
+              <button class="btn btn-danger" type='button'
+                (click)='eliminarNota()' [disabled]='!formNuevo.value.id' style="border-radius: 10px;">Eliminar nota</button>
+              <button class="btn btn-success" type='button'
+                (click)='editarNota()' [disabled]='formNuevo.invalid' style="border-radius: 10px;">Editar nota</button>
+              <button class="btn btn-secondary" type='button'
+                (click)='formNuevo.reset()' style="border-radius: 10px;">Cancelar</button>
+            </div>
+          </ng-template>
+        </form>
+        <hr>
+        <h5 style="text-align: center;">Formulario con ngModel</h5>
+        <div class="input-group">
+            <input class="form-control" type="text" [(ngModel)]="notaNueva.titulo" placeholder="Titulo de la nota"  style="border-radius: 10px;">
+            <input class="form-control" type="text" [(ngModel)]="notaNueva.contenido" placeholder="Contenido de la nota" style="border-radius: 10px;"><br>
+            <button  class="btn btn-primary btn-block" (click)="crearNota(notaNueva)" style="border-radius: 10px;">Insertar nota</button>
+        </div>
+        <div class="input-group">
+            <input (input)='buscarConRetraso()' class="form-control" type="text" [(ngModel)]="busqueda" placeholder="Buscar nota..."style="border-radius: 10px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

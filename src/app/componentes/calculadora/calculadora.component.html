@@ -1,0 +1,17 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header" style="text-align: center;">Tablas de multiplicar</div>
+      <div class="card-body">
+        <input class="form-control" placeholder="Introduce un número" type="number" [(ngModel)]="num_entrada" style="border-radius: 10px;">
+        <div class="btn-group mt-2">
+          <a style="border-radius: 10px;" class="btn btn-primary" routerLink="/multiplicar/{{num_entrada}}" [class.disabled]="!num_entrada">
+            Mostrar tabla a través del RouterLink</a> 
+          <button style="border-radius: 10px;" class="btn btn-primary" (click)="navegarHacia(num_entrada)" [disabled]="!num_entrada">
+            Mostrar tabla a través del Router</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
